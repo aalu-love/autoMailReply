@@ -28,16 +28,16 @@ const authorizationURL = oAuth2Client.generateAuthUrl({
 // Create a Gmail API client
 const gmailClient = google.gmail({ version: 'v1', auth: oAuth2Client });
 
-// Function to generate a random interval between min and max (inclusive)
-function getRandomInterval(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 // Exchange the authorization code for tokens
 async function getGoogleOAuthTokens({ code }) {
     const { tokens } = await oAuth2Client.getToken(code);
     oAuth2Client.setCredentials({ refresh_token: tokens?.refresh_token });
     return tokens;
+}
+
+// Function to generate a random interval between min and max (inclusive)
+function getRandomInterval(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 // Retrieve new emails from Gmail
