@@ -1,5 +1,4 @@
 const { google } = require('googleapis');
-const axios = require('axios');
 require('dotenv').config();
 
 // OAuth2 configuration
@@ -50,22 +49,6 @@ async function fetchNewEmails() {
 
     const emails = response.data.messages || [];
     return emails;
-}
-
-// Retrieve user details from Gmail
-async function fetchUserDetails({ userId = 'me', access_token }) {
-    try {
-        const response = await axios.get(`https://gmail.googleapis.com/gmail/v1/users/${userId}/profile`, {
-            headers: {
-                Authorization: `Bearer ${access_token}`,
-            },
-        });
-
-        const profile = response.data;
-        console.log('User Profile:', profile);
-    } catch (error) {
-        console.error('Error:', error);
-    }
 }
 
 // Send a reply email
@@ -171,5 +154,4 @@ module.exports = {
     authorizationURL, // URL for Google OAuth2 authorization
     getGoogleOAuthTokens, // Function to exchange authorization code for tokens
     executeEmailProcessing, // Function to start the email processing loop
-    fetchUserDetails, // Function to retrieve user details from Gmail
 };
